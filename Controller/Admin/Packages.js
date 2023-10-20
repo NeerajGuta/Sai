@@ -5,9 +5,9 @@ class packages {
     try {
       let {
         packagename,
+        packagetype,
         price,
-        startdate,
-        returndate,
+        journeytitle,
         itinerary,
         menuchart,
         lodingdetails,
@@ -15,9 +15,9 @@ class packages {
       let packageimage = req.files[0]?.filename;
       const Newpackages = new packageModel({
         packagename,
+        packagetype,
         price,
-        startdate,
-        returndate,
+        journeytitle,
         itinerary,
         menuchart,
         lodingdetails,
@@ -40,20 +40,19 @@ class packages {
       const {
         id,
         packagename,
+        packagetype,
         price,
-        startdate,
-        returndate,
+        journeytitle,
         itinerary,
         menuchart,
         lodingdetails,
       } = req.body;
 
       const updateObj = {};
-
+      if (packagetype) updateObj.packagetype = packagetype;
       if (packagename) updateObj.packagename = packagename;
+      if (journeytitle) updateObj.journeytitle = journeytitle;
       if (price) updateObj.price = price;
-      if (startdate) updateObj.startdate = startdate;
-      if (returndate) updateObj.returndate = returndate;
       if (itinerary) updateObj.itinerary = itinerary;
       if (menuchart) updateObj.menuchart = menuchart;
       if (lodingdetails) updateObj.lodingdetails = lodingdetails;

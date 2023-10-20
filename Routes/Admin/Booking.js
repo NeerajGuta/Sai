@@ -16,7 +16,8 @@ const upload = multer({ storage: storage });
 route.post("/booking", bookingController.booking);
 route.get("/getAllBooking", bookingController.getAllBooking);
 route.get("/getBookingBy/:id", bookingController.getBookingById);
-route.delete("/deletebooking",bookingController.deletebooking);
-route.delete("/deleteAllbooking",bookingController.deleteAllbooking);
+route.get("/getbookinguser/:id", bookingController.getBookingUserId);
+route.delete("/deletebooking", bookingController.deletebooking);
+route.delete("/deleteAllbooking", bookingController.deleteAllbooking);
 
 module.exports = route;

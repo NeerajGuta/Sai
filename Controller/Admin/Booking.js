@@ -5,6 +5,7 @@ class BOOKING {
     try {
       let {
         userId,
+        partnerId,
         name,
         email,
         mobile,
@@ -19,10 +20,12 @@ class BOOKING {
         PaymentMethod,
         PayId,
         Status,
+        pickuplocation,
       } = req.body;
 
       let data = await bookingModel.create({
         userId,
+        partnerId,
         name,
         email,
         mobile,
@@ -37,6 +40,7 @@ class BOOKING {
         PaymentMethod,
         PayId,
         Status,
+        pickuplocation,
       });
       if (!data) return res.status(400).json({ error: "Something went wrong" });
       return res.status(200).json({ success: "Successfully added" });
@@ -47,13 +51,29 @@ class BOOKING {
 
   async getAllBooking(req, res) {
     try {
-      let data = await bookingModel.find().sort({ _id: -1 });
+      let data = await bookingModel
+        .find()
+        .sort({ _id: -1 })
+        .populate("userId")
+        .populate("partnerId");
       return res.status(200).json({ success: data });
     } catch (error) {
       console.log(error);
     }
   }
+
   async getBookingById(req, res) {
+    try {
+      let id = req.params.id;
+      let data = await bookingModel.findById(id).populate("userId");
+      if (!data) return res.status(400).json({ error: "Data not found" });
+      return res.status(200).json({ success: data });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async getBookingUserId(req, res) {
     try {
       let id = req.params.id;
       let data = await bookingModel.find({ userId: id });

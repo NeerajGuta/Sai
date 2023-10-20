@@ -31,7 +31,10 @@ const Addtocart = require("./Routes/Admin/Addtocart");
 const Placeorder = require("./Routes/Admin/Placeorder");
 const Adminlogin = require("./Routes/Admin/Adminlogin");
 const Package = require("./Routes/Admin/Package");
-
+const Agent = require("./Routes/User/Agent");
+const TripPackage = require("./Routes/Admin/TripPackage");
+const TripDate = require("./Routes/Admin/TripDate");
+const PickUpLocation = require("./Routes/Admin/PickUp");
 //user
 
 app.use("/api/User", UserRoute);
@@ -43,6 +46,10 @@ app.use("/api/Admin", Addtocart);
 app.use("/api/Admin", Placeorder);
 app.use("/api/Admin", Adminlogin);
 app.use("/api/v1/admin", Package);
+app.use("/api/v1", Agent);
+app.use("/api/v1", TripPackage);
+app.use("/api/v1", TripDate);
+app.use("/api/v1", PickUpLocation);
 
 app.get("/", (req, res) => {
   return res.status(200).json({ success: "Welcome to Sai Group " });

@@ -20,7 +20,7 @@ router.post("/otpVarification", UserController.otpVarification);
 router.put("/makeBlockUnblockUser", UserController.makeBlockUnblockUser);
 router.put("/makeApproveAndHoldUser", UserController.makeApproveAndHoldUser);
 router.get("/getAllUser", UserController.getAllUser);
-router.get("/getUserById", UserController.getUserById);
+router.get("/getUserById/:id", UserController.getUserById);
 router.post("/sendMailForInquirey", UserController.sendMailForInquirey);
 router.post("/sendMailBookedDetails", UserController.sendMailBookedDetails);
 

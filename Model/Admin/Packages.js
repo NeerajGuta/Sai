@@ -6,19 +6,19 @@ const Packages = new mongoose.Schema(
       type: String,
       required: true,
     },
+    packagetype: {
+      type: String,
+      required: true,
+    },
+    journeytitle: {
+      type: String,
+      required: true,
+    },
     packageimage: {
       type: String,
       required: true,
     },
     price: {
-      type: String,
-      required: true,
-    },
-    startdate: {
-      type: String,
-      required: true,
-    },
-    returndate: {
       type: String,
       required: true,
     },

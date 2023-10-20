@@ -6,9 +6,52 @@ const { sendMail, sendMailR } = require("../../EmailSender/send");
 class User {
   async registrationUser(req, res) {
     try {
-      let { name, phone, email, address, password } = req.body;
+      let {
+        businessname,
+        name,
+        phone,
+        email,
+        address,
+        password,
+        gstnumber,
+        pannumber,
+        address2,
+        agentname,
+        agentphone,
+        agentemail,
+        agentbankname,
+        agentaccountnumber,
+        agentifscCode,
+        agentbranchname,
+        agentcommissionamount,
+        consultantname,
+        consultantphone,
+        consultantemail,
+        consultantbankname,
+        consultantaccountnumber,
+        consultantifscCode,
+        consultantbranchname,
+        consultantcommissionamount,
+        centername,
+        centerphone,
+        centeremail,
+        centerbankname,
+        centeraccountnumber,
+        centerifscCode,
+        centerbranchname,
+        centercommissionamount,
+      } = req.body;
       if (!name)
         return res.status(400).json({ error: "Please enter your name" });
+      if (!businessname) {
+        return res
+          .status(400)
+          .json({ error: "Please enter your Business Name" });
+      }
+
+      if (!pannumber) {
+        return res.status(400).json({ error: "Please enter your Pan Number" });
+      }
 
       if (!phone)
         return res
@@ -32,14 +75,44 @@ class User {
         return res.status(400).json({ error: "Please enter your password" });
       password = await bcrypt.hash(password, 10);
 
-      let file = req.files[0]?.filename;
+      let gstdocument = req.files[0]?.filename;
+      let pandocument = req.files[1]?.filename;
       let data = await userModel.create({
+        businessname,
         name,
         phone,
         email,
         address,
         password,
-        file,
+        gstnumber,
+        pannumber,
+        address2,
+        gstdocument,
+        pandocument,
+        agentname,
+        agentphone,
+        agentemail,
+        agentbankname,
+        agentaccountnumber,
+        agentifscCode,
+        agentbranchname,
+        agentcommissionamount,
+        consultantname,
+        consultantphone,
+        consultantemail,
+        consultantbankname,
+        consultantaccountnumber,
+        consultantifscCode,
+        consultantbranchname,
+        consultantcommissionamount,
+        centername,
+        centerphone,
+        centeremail,
+        centerbankname,
+        centeraccountnumber,
+        centerifscCode,
+        centerbranchname,
+        centercommissionamount,
       });
       if (!data) return res.status(400).json({ error: "Something went wrong" });
       sendMailR(
@@ -55,23 +128,54 @@ class User {
 
   async UpdateUser(req, res) {
     try {
-      let { id, name, phone, email, address, password, file } = req.body;
+      let {
+        id,
+        businessname,
+        name,
+        phone,
+        email,
+        address,
+        password,
+        gstnumber,
+        pannumber,
+        address2,
+        gstdocument,
+        pandocument,
+      } = req.body;
       let obj = {};
+      if (businessname) {
+        obj["businessname"] = businessname;
+      }
       if (name) {
         obj["name"] = name;
+      }
+      if (gstnumber) {
+        obj["gstnumber"] = gstnumber;
+      }
+      if (pannumber) {
+        obj["pannumber"] = pannumber;
       }
       if (address) {
         obj["address"] = address;
       }
-      if (file) {
-        obj["file"] = file;
+      if (address2) {
+        obj["address2"] = address2;
+      }
+      if (pandocument) {
+        obj["pandocument"] = pandocument;
+      }
+      if (gstdocument) {
+        obj["gstdocument"] = gstdocument;
       }
       if (req.files.length != 0) {
         let arr = req.files;
         let i;
         for (i = 0; i < arr.length; i++) {
-          if (arr[i].fieldname == "file") {
-            obj["file"] = arr[i].filename;
+          if (arr[i].fieldname == "pandocument") {
+            obj["pandocument"] = arr[i].filename;
+          }
+          if (arr[i].fieldname == "gstdocument") {
+            obj["gstdocument"] = arr[i].filename;
           }
         }
       }
@@ -344,7 +448,7 @@ class User {
         customerdetais,
         TotalAmount,
       } = req.body;
-      let msg = `<table class="table table-bordered">
+      let msg = `<table class="table table-bordered"  style="border-collapse: collapse; border: 1px solid black; padding:10px">
       <tbody>
       
         <tr>
