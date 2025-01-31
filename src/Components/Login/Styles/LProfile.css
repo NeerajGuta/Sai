@@ -1,0 +1,124 @@
+/* Web View Start */
+
+.myaccount-component {
+    display: flex;
+    padding: 20px 100px;
+  }
+  
+  .profile-container {
+    background-color: white;
+    box-shadow: 0 2px 6px 0 rgba(218, 218, 253, 0.65),
+      0 2px 6px 0 rgba(206, 206, 238, 0.54);
+    /* width: 30%; */
+    height: 300px;
+  }
+  
+  
+  .profile-user {
+    border-radius: 50%;
+    width: 81%;
+    padding: 10px 0;
+    height: 277px;
+  }
+  
+  .user-name {
+    color: chocolate;
+      padding: 0px 50px;
+    margin: 0px;
+  }
+  
+  .location-container {
+    display: flex;
+    padding: 10px 45px;
+    gap: 6px;
+    align-items: center;
+  }
+  
+  .location-icon {
+    width: 20px;
+    height: 23px;
+  }
+  
+  .location-name {
+    padding: 0px;
+    margin: 0px;
+  }
+  
+  .profile-container-2 {
+    background-color: white;
+    box-shadow: 0 2px 6px 0 rgba(218, 218, 253, 0.65),
+      0 2px 6px 0 rgba(206, 206, 238, 0.54);
+    width: 60%;
+    height: 300px;
+    /* margin: 0 0 0 30px; */
+  }
+  
+  .profile-content-display {
+    display: flex;
+    gap: 40px;
+  }
+  
+  .profile-user-deatils {
+    text-align: left;
+    padding: 10px 0 0 40px;
+  }
+  
+  .profile-user-title {
+    padding: 10px 0;
+    margin: 0;
+  }
+  
+  .profile-user-subtitle {
+    padding: 0;
+    color:chocolate
+  
+  }
+  
+  .edit-change-button {
+    display: flex;
+    padding: 5px 40px;
+    gap: 30px;
+    justify-content: end;
+  }
+  
+  .edit-profile-details {
+    text-align: center;
+    margin: auto;
+    display: flex;
+  }
+  
+  /* Web View End */
+  
+  /* Mobile View Start */
+
+  @media screen and (max-width: 600px) {
+    .profile-user-deatils{
+      padding: 0px !important;
+    }
+  }
+  
+  @media screen and (max-width: 799px) {
+    .myaccount-component {
+      display: block;
+      padding: 20px;
+    }
+  
+    .profile-container {
+      width: auto;
+    }
+  
+    .profile-container-2 {
+      width: auto;
+      margin: 0;
+    }
+  }
+  
+  @media screen and (max-width: 1024px) {
+    .profile-container {
+      height: auto;
+      width: auto;
+    }
+  }
+  
+  /* Mobile View End */
+  
