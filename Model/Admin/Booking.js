@@ -66,6 +66,18 @@ const BookingSchema = new Schema(
     partnertype: {
       type: String,
     },
+    recivedammount: {
+      type: String,
+      // required: true,
+    },
+    commissionId: {
+      type: String,
+      // required: true,
+    },
+    statuscheck: {
+      type: String,
+      default: "pending",
+    },
     Status: {
       type: String,
       default: "booked",

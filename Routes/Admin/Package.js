@@ -17,5 +17,13 @@ router.post("/addpackage", upload.any(), packageController.createpackage);
 router.put("/updatepackage", upload.any(), packageController.updatePacakge);
 router.get("/getallpackage", packageController.getPackage);
 router.delete("/removepackage/:id", packageController.removePackage);
+// //////////////////////////////////////////////////////////////////////////
+router.post("/newitineary", packageController.newpackageItinerary);
+router.put("/newitinearydelete", packageController.newpackageItineraryRemove);
+router.put("/newitinearyupdate", packageController.newpackageItineraryUpdate);
+
+router.post("/newmenuchart", packageController.newpackageMenuchart);
+router.put("/newmenuchartdelete", packageController.newpackageMenuchartRemove);
+router.put("/newmenuupdate", packageController.newpackageMenuchartUpdate);
 
 module.exports = router;

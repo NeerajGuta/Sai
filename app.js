@@ -5,6 +5,7 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const morgan = require("morgan");
 const path = require("path");
+const http = require("http");
 
 // Middleware
 app.use(express.json());
@@ -35,6 +36,7 @@ const Agent = require("./Routes/User/Agent");
 const TripPackage = require("./Routes/Admin/TripPackage");
 const TripDate = require("./Routes/Admin/TripDate");
 const PickUpLocation = require("./Routes/Admin/PickUp");
+const Banner = require("./Routes/Admin/Banner");
 //user
 
 app.use("/api/User", UserRoute);
@@ -50,6 +52,7 @@ app.use("/api/v1", Agent);
 app.use("/api/v1", TripPackage);
 app.use("/api/v1", TripDate);
 app.use("/api/v1", PickUpLocation);
+app.use("/api/v1/admin", Banner);
 
 app.get("/", (req, res) => {
   return res.status(200).json({ success: "Welcome to Sai Group " });

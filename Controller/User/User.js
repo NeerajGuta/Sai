@@ -7,6 +7,8 @@ class User {
   async registrationUser(req, res) {
     try {
       let {
+        cbmID,
+        cbmname,
         businessname,
         name,
         phone,
@@ -14,32 +16,12 @@ class User {
         address,
         password,
         gstnumber,
-        pannumber,
         address2,
-        agentname,
-        agentphone,
-        agentemail,
-        agentbankname,
-        agentaccountnumber,
-        agentifscCode,
-        agentbranchname,
-        agentcommissionamount,
-        consultantname,
-        consultantphone,
-        consultantemail,
-        consultantbankname,
-        consultantaccountnumber,
-        consultantifscCode,
-        consultantbranchname,
-        consultantcommissionamount,
-        centername,
-        centerphone,
-        centeremail,
-        centerbankname,
-        centeraccountnumber,
-        centerifscCode,
-        centerbranchname,
-        centercommissionamount,
+        bankname,
+        accountnumber,
+        ifscCode,
+        branchname,
+        commissionamount,
       } = req.body;
       if (!name)
         return res.status(400).json({ error: "Please enter your name" });
@@ -48,11 +30,6 @@ class User {
           .status(400)
           .json({ error: "Please enter your Business Name" });
       }
-
-      if (!pannumber) {
-        return res.status(400).json({ error: "Please enter your Pan Number" });
-      }
-
       if (!phone)
         return res
           .status(400)
@@ -75,9 +52,32 @@ class User {
         return res.status(400).json({ error: "Please enter your password" });
       password = await bcrypt.hash(password, 10);
 
-      let gstdocument = req.files[0]?.filename;
-      let pandocument = req.files[1]?.filename;
+      let gstdocument;
+      let pandocument;
+      let aadhardocument;
+      let shopimages = [];
+
+      req.files.map((val) => {
+        if (val.fieldname === "gstdocument") {
+          gstdocument = val.filename;
+        } else if (val.fieldname === "aadhardocument") {
+          aadhardocument = val.filename;
+        } else if (val.fieldname === "pandocument") {
+          pandocument = val.filename;
+        } else if (val.fieldname === "shopimages[]") {
+          shopimages.push(val.filename);
+        }
+      });
+
+      // if (req.files.length) {
+      //   req.files.forEach((imageName) => {
+      //     shopimages.push(imageName.filename);
+      //   });
+      // }
+
       let data = await userModel.create({
+        cbmID,
+        cbmname,
         businessname,
         name,
         phone,
@@ -85,34 +85,16 @@ class User {
         address,
         password,
         gstnumber,
-        pannumber,
         address2,
-        gstdocument,
-        pandocument,
-        agentname,
-        agentphone,
-        agentemail,
-        agentbankname,
-        agentaccountnumber,
-        agentifscCode,
-        agentbranchname,
-        agentcommissionamount,
-        consultantname,
-        consultantphone,
-        consultantemail,
-        consultantbankname,
-        consultantaccountnumber,
-        consultantifscCode,
-        consultantbranchname,
-        consultantcommissionamount,
-        centername,
-        centerphone,
-        centeremail,
-        centerbankname,
-        centeraccountnumber,
-        centerifscCode,
-        centerbranchname,
-        centercommissionamount,
+        bankname,
+        accountnumber,
+        ifscCode,
+        branchname,
+        commissionamount,
+        gstdocument: gstdocument,
+        pandocument: pandocument,
+        aadhardocument: aadhardocument,
+        shopimages: shopimages,
       });
       if (!data) return res.status(400).json({ error: "Something went wrong" });
       sendMailR(
@@ -137,10 +119,15 @@ class User {
         address,
         password,
         gstnumber,
-        pannumber,
         address2,
         gstdocument,
         pandocument,
+        aadhardocument,
+        bankname,
+        accountnumber,
+        ifscCode,
+        branchname,
+        commissionamount,
       } = req.body;
       let obj = {};
       if (businessname) {
@@ -151,9 +138,6 @@ class User {
       }
       if (gstnumber) {
         obj["gstnumber"] = gstnumber;
-      }
-      if (pannumber) {
-        obj["pannumber"] = pannumber;
       }
       if (address) {
         obj["address"] = address;
@@ -167,15 +151,37 @@ class User {
       if (gstdocument) {
         obj["gstdocument"] = gstdocument;
       }
-      if (req.files.length != 0) {
+      if (aadhardocument) {
+        obj["aadhardocument"] = aadhardocument;
+      }
+      if (bankname) {
+        obj["bankname"] = bankname;
+      }
+      if (accountnumber) {
+        obj["accountnumber"] = accountnumber;
+      }
+      if (ifscCode) {
+        obj["ifscCode"] = ifscCode;
+      }
+      if (branchname) {
+        obj["branchname"] = branchname;
+      }
+      if (commissionamount) {
+        obj["commissionamount"] = commissionamount;
+      }
+
+      if (req.files?.length != 0) {
         let arr = req.files;
         let i;
-        for (i = 0; i < arr.length; i++) {
+        for (i = 0; i < arr?.length; i++) {
           if (arr[i].fieldname == "pandocument") {
             obj["pandocument"] = arr[i].filename;
           }
           if (arr[i].fieldname == "gstdocument") {
             obj["gstdocument"] = arr[i].filename;
+          }
+          if (arr[i].fieldname == "aadhardocument") {
+            obj["aadhardocument"] = arr[i].filename;
           }
         }
       }
@@ -208,6 +214,7 @@ class User {
       return res.status(200).json({ success: data });
     } catch (error) {
       console.log(error);
+      return res.status(400).json({ error });
     }
   }
 
@@ -380,7 +387,7 @@ class User {
   }
   async getAllUser(req, res) {
     try {
-      let data = await userModel.find().sort({});
+      let data = await userModel.find().populate("cbmID").sort({});
       return res.status(200).json({ success: data });
     } catch (error) {
       console.log(error);

@@ -14,7 +14,14 @@ const UserSchema = new Schema(
     partnerId: {
       type: String,
       unique: true,
-      // required: true,
+    },
+    cbmID: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "CenterExecutive",
+    },
+    cbmname: {
+      type: String,
+      required: true,
     },
     businessname: {
       type: String,
@@ -35,11 +42,14 @@ const UserSchema = new Schema(
     gstdocument: {
       type: String,
     },
-    pannumber: {
-      type: String,
-    },
     pandocument: {
       type: String,
+    },
+    aadhardocument: {
+      type: String,
+    },
+    shopimages: {
+      type: [String],
     },
     address: {
       type: String,
@@ -51,111 +61,130 @@ const UserSchema = new Schema(
     password: {
       type: String,
     },
+    bankname: {
+      type: String,
+      required: true,
+    },
+    accountnumber: {
+      type: String,
+      required: true,
+    },
+    ifscCode: {
+      type: String,
+      required: true,
+    },
+    branchname: {
+      type: String,
+      required: true,
+    },
+    commissionamount: {
+      type: Number,
+      required: true,
+    },
     isBlock: {
       type: Boolean,
       default: false,
     },
 
     // Agent Details
-
-    agentname: {
-      type: String,
-      required: true,
-    },
-    agentphone: {
-      type: String,
-      required: true,
-    },
-    agentemail: {
-      type: String,
-      required: true,
-    },
-    agentbankname: {
-      type: String,
-      required: true,
-    },
-    agentaccountnumber: {
-      type: String,
-      required: true,
-    },
-    agentifscCode: {
-      type: String,
-      required: true,
-    },
-    agentbranchname: {
-      type: String,
-      required: true,
-    },
-    agentcommissionamount: {
-      type: Number,
-      required: true,
-    },
+    // agentname: {
+    //   type: String,
+    //   required: true,
+    // },
+    // agentphone: {
+    //   type: String,
+    //   required: true,
+    // },
+    // agentemail: {
+    //   type: String,
+    //   required: true,
+    // },
+    // agentbankname: {
+    //   type: String,
+    //   required: true,
+    // },
+    // agentaccountnumber: {
+    //   type: String,
+    //   required: true,
+    // },
+    // agentifscCode: {
+    //   type: String,
+    //   required: true,
+    // },
+    // agentbranchname: {
+    //   type: String,
+    //   required: true,
+    // },
+    // agentcommissionamount: {
+    //   type: Number,
+    //   required: true,
+    // },
 
     // Consultatnt Details
-    consultantname: {
-      type: String,
-      required: true,
-    },
-    consultantphone: {
-      type: Number,
-    },
-    consultantemail: {
-      type: String,
-      required: true,
-    },
-    consultantbankname: {
-      type: String,
-      required: true,
-    },
-    consultantaccountnumber: {
-      type: String,
-      required: true,
-    },
-    consultantifscCode: {
-      type: String,
-      required: true,
-    },
-    consultantbranchname: {
-      type: String,
-      required: true,
-    },
-    consultantcommissionamount: {
-      type: Number,
-      required: true,
-    },
+    // consultantname: {
+    //   type: String,
+    //   required: true,
+    // },
+    // consultantphone: {
+    //   type: Number,
+    // },
+    // consultantemail: {
+    //   type: String,
+    //   required: true,
+    // },
+    // consultantbankname: {
+    //   type: String,
+    //   required: true,
+    // },
+    // consultantaccountnumber: {
+    //   type: String,
+    //   required: true,
+    // },
+    // consultantifscCode: {
+    //   type: String,
+    //   required: true,
+    // },
+    // consultantbranchname: {
+    //   type: String,
+    //   required: true,
+    // },
+    // consultantcommissionamount: {
+    //   type: Number,
+    //   required: true,
+    // },
     // Center Details
-    centername: {
-      type: String,
-      required: true,
-    },
-    centerphone: {
-      type: String,
-      required: true,
-    },
-    centeremail: {
-      type: String,
-      required: true,
-    },
-    centerbankname: {
-      type: String,
-      required: true,
-    },
-    centeraccountnumber: {
-      type: String,
-      required: true,
-    },
-    centerifscCode: {
-      type: String,
-      required: true,
-    },
-    centerbranchname: {
-      type: String,
-      required: true,
-    },
-    centercommissionamount: {
-      type: Number,
-      required: true,
-    },
+    // centername: {
+    //   type: String,
+    //   required: true,
+    // },
+    // centerphone: {
+    //   type: String,
+    //   required: true,
+    // },
+    // centeremail: {
+    //   type: String,
+    //   required: true,
+    // },
+    // centerbankname: {
+    //   type: String,
+    //   required: true,
+    // },
+    // centeraccountnumber: {
+    //   type: String,
+    //   required: true,
+    // },
+    // centerifscCode: {
+    //   type: String,
+    //   required: true,
+    // },
+    // centerbranchname: {
+    //   type: String,
+    //   required: true,
+    // },
+    // centercommissionamount: {
+    //   type: Number,
+    //   required: true,
+    // },
   },
   { timestamps: true }
 );

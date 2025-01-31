@@ -19,5 +19,7 @@ route.get("/getBookingBy/:id", bookingController.getBookingById);
 route.get("/getbookinguser/:id", bookingController.getBookingUserId);
 route.delete("/deletebooking", bookingController.deletebooking);
 route.delete("/deleteAllbooking", bookingController.deleteAllbooking);
+route.post("/paytmMadi", bookingController.PaytmTransaction);
+route.put("/bookingupdate", bookingController.updateBooking);
 
 module.exports = route;
